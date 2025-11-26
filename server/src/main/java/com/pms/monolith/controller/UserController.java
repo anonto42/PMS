@@ -28,12 +28,7 @@ public class UserController {
 
         User saved = userService.registerUser(user);
 
-        return UserResponseDTO.builder()
-                .id(saved.getId())
-                .name(saved.getName())
-                .email(saved.getEmail())
-                .createdAt(saved.getCreatedAt())
-                .build();
+        return UserResponseDTO.fromEntity(saved);
     }
 
     @PostMapping("/login")
@@ -41,12 +36,7 @@ public class UserController {
 
         User user = userService.login(loginDTO.getEmail(), loginDTO.getPassword());
 
-        return UserResponseDTO.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .build();
+        return UserResponseDTO.fromEntity(user);
     }
 
     @GetMapping("/{id}")
@@ -54,12 +44,7 @@ public class UserController {
 
         User user = userService.getUserById(id);
 
-        return UserResponseDTO.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .build();
+        return UserResponseDTO.fromEntity(user);
     }
 
     @PutMapping("/{id}")
@@ -70,12 +55,7 @@ public class UserController {
 
         User updated = userService.updateUser(id, name);
 
-        return UserResponseDTO.builder()
-                .id(updated.getId())
-                .name(updated.getName())
-                .email(updated.getEmail())
-                .createdAt(updated.getCreatedAt())
-                .build();
+        return UserResponseDTO.fromEntity(updated);
     }
 
     @DeleteMapping("/{id}")

@@ -1,8 +1,6 @@
 package com.pms.monolith.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.pms.monolith.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,16 +13,19 @@ import java.util.UUID;
 @Builder
 public class UserResponseDTO {
 
-    @NotBlank(message = "Id required!")
     private UUID id;
-
-    @NotBlank(message = "Name is required!")
     private String name;
-
-    @NotBlank(message = "Emails required!")
-    @Email(message = "Email should be valid!")
     private String email;
-
-    @NotNull(message = "Created at is required!")
     private Date createdAt;
+
+    public static UserResponseDTO fromEntity(User user) {
+        if (user == null) return null;
+
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .build();
+    }
 }
