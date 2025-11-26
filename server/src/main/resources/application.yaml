@@ -1,6 +1,9 @@
 spring:
   application:
     name: pms
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
   h2:
     console:
       path: /h2-console
