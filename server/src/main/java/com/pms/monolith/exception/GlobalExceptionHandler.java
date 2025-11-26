@@ -17,6 +17,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
 
+        log.error(ex.getMessage(), ex);
+
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
@@ -28,6 +30,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException.class})
     public ResponseEntity<Map<String, String>> handleUnknownFields(Exception ex) {
 
+        log.error(ex.getMessage(), ex);
+
         Map<String, String> error = new HashMap<>();
         error.put("error", "Unknown field in request body: " + ex.getMessage());
 
@@ -38,6 +42,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+
+        log.error(ex.getMessage(), ex);
 
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
