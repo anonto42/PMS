@@ -22,6 +22,9 @@ public class Prescription {
     @NotNull
     private User creator;
 
+    @NotNull(message = "Prescription date is required")
+    private Date prescriptionDate;
+
     @NotNull
     private String patientName;
 
